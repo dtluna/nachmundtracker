@@ -1,0 +1,39 @@
+---
+-
+  phase: 1
+  date: 26.04.2025
+  scale: incursion
+  mission: Purge After Inload
+  players: 
+    - dtluna
+    - Саша vizion
+  alliances: 
+    - despoilers
+    - guardians
+  victor: despoilers
+  sap_gain: 
+    guardians: 2
+    despoilers: 1
+  bp_allocation: 
+    despoilers: spaceport
+  sap_allocation: 
+    despoilers: spaceport
+
+-
+  phase: 1
+  date: 26.04.2025
+  scale: incursion
+  mission: Saboteurs
+  players: 
+    - Егор
+    - Лёша
+  alliances: 
+    - despoilers
+    - guardians
+  victor: guardians
+  sap_gain: 
+    guardians: 1
+  bp_allocation: 
+    despoilers: battery
+  sap_allocation:
+
