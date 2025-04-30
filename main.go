@@ -2,37 +2,13 @@ package main
 
 import (
 	"fmt"
-	"io"
 	"log"
-	"os"
 
-	"github.com/dtluna/nachmundtracker/model"
-	"github.com/goccy/go-yaml"
+	"github.com/dtluna/nachmundtracker/business"
 )
 
-func decodeData() ([]model.GameRecord, error) {
-	file, err := os.Open("campaign.yaml")
-	if err != nil {
-		return nil, fmt.Errorf("opening file: %w", err)
-	}
-	defer file.Close()
-
-	data, err := io.ReadAll(file)
-	if err != nil {
-		return nil, fmt.Errorf("reading file data: %w", err)
-	}
-
-	var games []model.GameRecord
-
-	if err := yaml.Unmarshal(data, &games); err != nil {
-		return nil, fmt.Errorf("decoding yaml: %w", err)
-	}
-
-	return games, nil
-}
-
 func main() {
-	games, err := decodeData()
+	games, err := business.DecodeData()
 	if err != nil {
 		log.Fatalf("decoding data: %v\n", err)
 	}
