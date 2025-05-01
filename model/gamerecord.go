@@ -1,15 +1,22 @@
 package model
 
+import "fmt"
+
 type GameRecord struct {
+	Date          string
 	Phase         Phase
 	Scale         Scale
 	Mission       string
 	Players       []string
 	Alliances     []Alliance
-	Victor        string                // either a participating alliance or DRAW
-	SAPGain       SAPGain               `yaml:"sap_gain"`
+	Victor        Victor                // either a participating alliance or DRAW
+	SAPGain       map[Alliance]uint     `yaml:"sap_gain"`
 	BPAllocation  map[Alliance]Location `yaml:"bp_allocation"`
 	SAPAllocation map[Alliance]Location `yaml:"sap_allocation"`
+}
+
+func (gr GameRecord) String() string {
+	return fmt.Sprintf("game on %v, mission %s between %v", gr.Date, gr.Mission, gr.Players)
 }
 
 type Phase int
@@ -36,10 +43,6 @@ const (
 	ScaleOnslaught   Scale = "onslaught"
 )
 
-type SAPGain struct {
-	Guardians, Despoilers, Marauders int
-}
-
 type Location string
 
 const (
@@ -47,4 +50,13 @@ const (
 	LocationTower     Location = "tower"
 	LocationBattery   Location = "battery"
 	LocationSpaceport Location = "spaceport"
+)
+
+type Victor string
+
+const (
+	VictorDraw       Victor = "DRAW"
+	VictorGuardians  Victor = Victor(AllianceGuardians)
+	VictorDespoilers Victor = Victor(AllianceDespoilers)
+	VictorMarauders  Victor = Victor(AllianceMarauders)
 )
