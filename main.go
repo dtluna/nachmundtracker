@@ -2,14 +2,13 @@ package main
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/alecthomas/kong"
 	"github.com/dtluna/nachmundtracker/business"
 )
 
 var CLI struct {
-	Default DefaultCommand `cmd:"" default:"withargs"`
+	Default DefaultCommand `cmd:"" help:"Show BP and SAP allocation for all phases for all alliances." default:"withargs"`
 }
 
 type DefaultCommand struct {
@@ -19,7 +18,7 @@ type DefaultCommand struct {
 func (com *DefaultCommand) Run(ctx *kong.Context) error {
 	games, err := business.DecodeData(com.CampaignYAML)
 	if err != nil {
-		log.Fatalf("decoding data: %v\n", err)
+		return fmt.Errorf("decoding data: %w", err)
 	}
 
 	fmt.Printf("%+v\n", games)
