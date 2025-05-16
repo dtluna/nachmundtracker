@@ -13,7 +13,7 @@ import (
 	"github.com/goccy/go-yaml"
 )
 
-func DecodeData(filename string) ([]model.GameRecord, error) {
+func DecodeData(filename string) (validGames []model.GameRecord, err error) {
 	file, err := os.Open(filename)
 	if err != nil {
 		return nil, fmt.Errorf("opening file: %w", err)
@@ -31,22 +31,13 @@ func DecodeData(filename string) ([]model.GameRecord, error) {
 		return nil, fmt.Errorf("decoding yaml: %w", err)
 	}
 
-	_, err = validateGames(games)
+	validGames, err = validateGames(games)
 	if err != nil {
-		return nil, fmt.Errorf("validation errors: %w", err)
+		return validGames, fmt.Errorf("validation errors: %w", err)
 	}
 
-	return games, nil
+	return validGames, nil
 }
-
-// type GameError struct {
-// 	game        model.GameRecord
-// 	description string
-// }
-
-// func (ge GameError) Error() string {
-// 	return fmt.Sprintf("%v: %s", ge.game, ge.description)
-// }
 
 type GameErrors struct {
 	game   model.GameRecord
