@@ -6,6 +6,7 @@ import (
 
 	"github.com/alecthomas/kong"
 	"github.com/dtluna/nachmundtracker/business"
+	"github.com/dtluna/nachmundtracker/presentation"
 )
 
 type Default struct {
@@ -20,6 +21,9 @@ func (com *Default) Run(ctx *kong.Context) error {
 		fmt.Fprintf(os.Stderr, "Warning: validation errors present, run the validate command to see details\n")
 	}
 
-	fmt.Printf("%+v\n", games)
+	results := business.CalculateResults(games)
+
+	presentation.PrintResults(results, com.Phase, com.Alliance)
+
 	return nil
 }
