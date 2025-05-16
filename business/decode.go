@@ -11,8 +11,8 @@ import (
 	"github.com/goccy/go-yaml"
 )
 
-func DecodeData() ([]model.GameRecord, error) {
-	file, err := os.Open("campaign.yaml")
+func DecodeData(filename string) ([]model.GameRecord, error) {
+	file, err := os.Open(filename)
 	if err != nil {
 		return nil, fmt.Errorf("opening file: %w", err)
 	}
