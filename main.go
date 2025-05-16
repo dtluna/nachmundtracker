@@ -7,7 +7,7 @@ import (
 
 var CLI struct {
 	Default  commands.Default  `cmd:"" help:"Show BP and SAP allocation. Output can be filtered by phase and alliance." default:"withargs"`
-	Validate commands.Validate `cmd:"" help:"Validate the campaign file."`
+	Validate commands.Validate `cmd:"" help:"Validate the campaign file." aliases:"v"`
 }
 
 func main() {
